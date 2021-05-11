@@ -30,3 +30,79 @@
 *.exe
 *.out
 *.app
+
+**/CMakeLists.txt.user
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+comet.exe
+Makefile
+
+#QtCreator auto-generated files
+comet.config
+comet.creator
+comet.creator.user
+comet.files
+comet.includes
+comet-ms-code/build-comet-ms-Desktop_Qt_5_12_2_clang_64bit-Debug/*
+comet-ms-code/build-comet-ms-Desktop_Qt_5_12_2_clang_64bit-Default/*
+comet-ms-code/build-comet-ms-Desktop_Qt_5_13_0_clang_64bit-Default/*
+build-tests-Desktop_Qt_5_12_2_clang_64bit-Default/*
+build-tests-Desktop_Qt_5_13_0_clang_64bit-Default/*
+build-tests-Desktop_Qt_5_12_2_clang_64bit-Debug/*
+build-tests-Desktop_Qt_5_13_0_clang_64bit-Debug/*
+
+#.DS_Store files
+.DS_Store
+comet-ms-code/.DS_Store
+
+#test executable
+Tests/comet-test
+
+# Visual Studio 2019 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignoreable files
+*.nuget.props
+*.nuget.targets
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
