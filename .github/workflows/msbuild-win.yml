@@ -30,8 +30,8 @@ jobs:
         # OPTIONAL: Specify a custon install location
         # boost_install_dir: C:\some_directory
     - name: Build
-      working-directory: ./Monocle.CLI
-      run: dotnet publish -c Release -r win-x64 -o Monocle.CLI
+      working-directory: ./CometCIDS
+      run: dotnet publish -c Release -r win-x64 -o CometCIDS
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -44,7 +44,7 @@ jobs:
           draft: true
           prerelease: true
     - name: Zip CLI # This would actually build your project, using zip for an example artifact
-      working-directory: ./Monocle.CLI
+      working-directory: ./CometCIDS
       run: Compress-Archive -Path ./comet-ms -DestinationPath ../CometCIDS.zip
     - name: Upload Release Asset
       id: upload-release-asset 
@@ -54,5 +54,5 @@ jobs:
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ./CometCIDS.zip
-          asset_name: CoemtCIDS.zip
+          asset_name: CometCIDS.zip
           asset_content_type: application/zip
