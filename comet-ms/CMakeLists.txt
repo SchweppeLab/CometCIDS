@@ -12,9 +12,9 @@ include_directories(MSToolkit/src/expat-2.2.0)
 include_directories(MSToolkit/src/mzParser)
 include_directories(MSToolkit/src/zlib-1.2.8)
 
-#Added by Phil 2019-07-15
 if (APPLE)
-#	include_directories("/usr/local/include/eigen3/")
+        set(CMAKE_OSX_SYSROOT "/")
+        include_directories("/usr/local/include/eigen3/")
 else ()
 	include_directories("/usr/include/eigen3")
 endif ()
