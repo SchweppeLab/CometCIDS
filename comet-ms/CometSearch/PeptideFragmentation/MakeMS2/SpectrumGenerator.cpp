@@ -66,6 +66,9 @@ void SpectrumGenerator::setOption(string key, string value) {
     else if (key == "use_mz_range") {
         options.useMzRange = readBoolValue(value);
     }
+    else if (key == "frag_isotope_min_prob") {
+        options.isotopes.setProbCutoff(value);
+    }
     else {
         options.isotopes.setOption(key, value);
     }
@@ -82,6 +85,8 @@ void SpectrumGenerator::printOptions() {
     cout << "model_windowed_scaling = " << options.doWindowedScaling << endl;
     cout << "isotope_sqrt = " << options.isUseSqrtNormalization << endl;
     cout << "use_mz_range = " << options.useMzRange << endl;
+    cout << "frag_isotope_min_prob = " << endl;
+    options.isotopes.printProbCutoff();
     cout << "=======================================================" << endl;
 }
 

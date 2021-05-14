@@ -1336,6 +1336,9 @@ void LoadParameters(char *pszParamsFile,
             else if(strstr(szParamName, "fragment_model")) {
                 pSearchMgr->SetParam(szParamName, szParamVal, szParamVal);
             }
+            else if (strstr(szParamName, "isotope_min_prob")) {
+                pSearchMgr->SetParam(szParamName, szParamVal, szParamVal);
+            }
             else
             {
                sprintf(szErrorMsg, " Warning - invalid parameter found: %s.  Parameter will be ignored.\n", szParamName);

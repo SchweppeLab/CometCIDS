@@ -62,6 +62,26 @@ void PeptideIsotopeDist::setOption(string key, string value) {
     hasNewDist = true;
 }
 
+void PeptideIsotopeDist::setProbCutoff(std::string value) {
+    if (value == "") {
+        throw "Empty isotope min prob.";
+    }
+    else if (std::stod(value) > 0 && std::stod(value) <= 1) {
+        minProb = std::stod(value);
+    }
+    else if (std::stod(value) > 1) {
+        throw "Minimum probability greater than 1.";
+    }
+    else {
+        throw "Minimum probabilty less than 0.";
+    }
+}
+
+void PeptideIsotopeDist::printProbCutoff() {
+    cout.precision(17);
+    cout << fixed << minProb << endl;
+}
+
 void PeptideIsotopeDist::printOptions() {
     cout << "\n\nUsing Distribution:" << endl;
     for (const auto& option : AADist)

@@ -13,6 +13,10 @@ public:
 
    void setOption(std::string key, std::string value);
 
+   void setProbCutoff(std::string value);
+
+   void printProbCutoff();
+
    void printOptions();
 
    ionDistOutput makeFragmentDist(std::string peptide, int nHeavy,  bool isUseSqrtNormalization, bool debug);
@@ -23,6 +27,8 @@ private:
     * enables calculation of the fragment ion distribution with AADensity0.
     */
    bool hasNewDist = false;
+
+   double minProb = 0.0000001;
 
    std::map<std::string, std::vector<float> > AADist;
    std::map<std::string, std::vector<float> > AADensity0;

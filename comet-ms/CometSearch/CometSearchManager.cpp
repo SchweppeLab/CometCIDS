@@ -1235,6 +1235,11 @@ bool CometSearchManager::InitializeStaticParams()
       calculator.setOption("obs_charge_offset", obsChargeOffset);
    }
 
+   string model_min_cutoff;
+   if (GetParamValue("frag_isotope_min_prob", model_min_cutoff)) {
+       calculator.setOption("frag_isotope_min_prob", model_min_cutoff);
+   }
+
    string doNormalization;
    if (GetParamValue("normalization", doNormalization)) {
       calculator.setOption("normalization", doNormalization);
@@ -1266,6 +1271,11 @@ bool CometSearchManager::InitializeStaticParams()
    }
    else {
        calculator.setOption("model", "");
+   }
+
+   string isoMinProb;
+   if (GetParamValue("isotope_min_prob", isoMinProb)) {
+       calculator.setOption("frag_isotope_min_prob", isoMinProb);
    }
 
    // Dist can only be set after model is selected.
