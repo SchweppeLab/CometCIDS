@@ -7,7 +7,7 @@
 #include <iostream>
 #include <math.h>
 
-#define MIN_PEPTIDE_DIST_P 0.0000001
+//#define MIN_PEPTIDE_DIST_P 0.0000001
 
 using namespace std;
 
@@ -178,7 +178,7 @@ ionDistOutput PeptideIsotopeDist::makeFragmentDist(string peptide, int nHeavy, b
     ionDistOutput output;
 
     //if p or q is very close to zero, peptide is not very interesting, return all zeros.
-    if (static_cast<double>(p) < MIN_PEPTIDE_DIST_P || static_cast<double>(q) < MIN_PEPTIDE_DIST_P) {
+    if (static_cast<double>(p) < minProb || static_cast<double>(q) < minProb) {
         for (int i = 0; i <= nHeavy; i++) {
             vector<float> zeroVector = vector<float>(peptideLength, 0);
             output.bIons.push_back(zeroVector);
