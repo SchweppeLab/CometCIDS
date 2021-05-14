@@ -17,6 +17,8 @@ public:
 
    void printProbCutoff();
 
+   double getProbCutoff();
+
    void printOptions();
 
    ionDistOutput makeFragmentDist(std::string peptide, int nHeavy,  bool isUseSqrtNormalization, bool debug);

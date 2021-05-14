@@ -85,8 +85,7 @@ void SpectrumGenerator::printOptions() {
     cout << "model_windowed_scaling = " << options.doWindowedScaling << endl;
     cout << "isotope_sqrt = " << options.isUseSqrtNormalization << endl;
     cout << "use_mz_range = " << options.useMzRange << endl;
-    cout << "frag_isotope_min_prob = " << endl;
-    options.isotopes.printProbCutoff();
+    cout << "frag_isotope_min_prob = " << options.isotopes.getProbCutoff() << endl;
     cout << "=======================================================" << endl;
 }
 

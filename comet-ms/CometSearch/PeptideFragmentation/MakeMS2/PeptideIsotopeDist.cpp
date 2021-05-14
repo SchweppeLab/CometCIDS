@@ -77,6 +77,10 @@ void PeptideIsotopeDist::setProbCutoff(std::string value) {
     }
 }
 
+double PeptideIsotopeDist::getProbCutoff() {
+    return minProb;
+}
+
 void PeptideIsotopeDist::printProbCutoff() {
     cout.precision(17);
     cout << fixed << minProb << endl;
