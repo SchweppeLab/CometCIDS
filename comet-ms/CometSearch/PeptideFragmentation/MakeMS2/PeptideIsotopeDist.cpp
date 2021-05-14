@@ -63,27 +63,26 @@ void PeptideIsotopeDist::setOption(string key, string value) {
 }
 
 void PeptideIsotopeDist::setProbCutoff(std::string value) {
-    if (value == "") {
-        throw "Empty isotope min prob.";
+    try {
+        if (std::stod(value) > 0 && std::stod(value) <= 1) {
+            minIsotopeProbabilityThreshold = std::stod(value);
+        }
+        else if (std::stod(value) > 1 || std::stod(value) < 0) {
+            throw "Minimum probability outside of 0-1.";
+        }
     }
-    else if (std::stod(value) > 0 && std::stod(value) <= 1) {
-        minProb = std::stod(value);
-    }
-    else if (std::stod(value) > 1) {
-        throw "Minimum probability greater than 1.";
-    }
-    else {
-        throw "Minimum probabilty less than 0.";
+    catch(const std::invalid_argument&){
+        throw "Invalid minimum probability property.";
     }
 }
 
 double PeptideIsotopeDist::getProbCutoff() {
-    return minProb;
+    return minIsotopeProbabilityThreshold;
 }
 
 void PeptideIsotopeDist::printProbCutoff() {
-    cout.precision(17);
-    cout << fixed << minProb << endl;
+    cout.precision(11);
+    cout << fixed << minIsotopeProbabilityThreshold << endl;
 }
 
 void PeptideIsotopeDist::printOptions() {
@@ -182,7 +181,7 @@ ionDistOutput PeptideIsotopeDist::makeFragmentDist(string peptide, int nHeavy, b
     ionDistOutput output;
 
     //if p or q is very close to zero, peptide is not very interesting, return all zeros.
-    if (static_cast<double>(p) < minProb || static_cast<double>(q) < minProb) {
+    if (static_cast<double>(p) < minIsotopeProbabilityThreshold || static_cast<double>(q) < minIsotopeProbabilityThreshold) {
         for (int i = 0; i <= nHeavy; i++) {
             vector<float> zeroVector = vector<float>(peptideLength, 0);
             output.bIons.push_back(zeroVector);

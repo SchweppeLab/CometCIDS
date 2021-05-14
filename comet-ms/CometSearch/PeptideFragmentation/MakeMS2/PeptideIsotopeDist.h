@@ -30,7 +30,7 @@ private:
     */
    bool hasNewDist = false;
 
-   double minProb = 0.0001;
+   double minIsotopeProbabilityThreshold = 0.0001;
 
    std::map<std::string, std::vector<float> > AADist;
    std::map<std::string, std::vector<float> > AADensity0;
