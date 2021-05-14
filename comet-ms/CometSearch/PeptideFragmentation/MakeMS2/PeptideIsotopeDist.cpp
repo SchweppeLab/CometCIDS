@@ -7,7 +7,7 @@
 #include <iostream>
 #include <math.h>
 
-#define MIN_PEPTIDE_DIST_P 0.0001
+#define MIN_PEPTIDE_DIST_P 0.0000001
 
 using namespace std;
 
