@@ -20,8 +20,8 @@ jobs:
           - os: windows-latest
             compiler: clang
     name: Run MSBuild
-      env:
-        buildDir: '${{ github.workspace }}/build'
+    env:
+      buildDir: '${{ github.workspace }}/build'
 
     steps:
     - name: Checkout Repo
