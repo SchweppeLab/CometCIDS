@@ -209,6 +209,7 @@
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\PeptideIsotopeDist.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\peptidemass.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\SpectrumGenerator.cpp" />
+    <ClCompile Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Comet.rc" />
@@ -237,6 +238,7 @@
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\PeptideIsotopeDist.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\peptidemass.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\SpectrumGenerator.h" />
+    <ClInclude Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

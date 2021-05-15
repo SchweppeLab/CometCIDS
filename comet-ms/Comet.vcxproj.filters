@@ -80,6 +80,9 @@
     <ClCompile Include="CometSearch\PeptideFragmentation\FragmentCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Comet.rc">
@@ -148,6 +151,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CometSearch\PeptideFragmentation\FragmentCalculator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
