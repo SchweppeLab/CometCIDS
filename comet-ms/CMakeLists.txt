@@ -48,4 +48,4 @@ endif ()
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
 
 # comet tests
-add_executable(../tests/test_exampleTest.exe ../tests/comet_test_exampleTest.cpp)
+# add_executable(../tests/test_exampleTest.exe ../tests/comet_test_exampleTest.cpp)
