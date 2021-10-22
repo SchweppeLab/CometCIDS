@@ -57,9 +57,9 @@ jobs:
           draft: true
           prerelease: true
 
-    - name: Zip CLI # This would actually build your project, using zip for an example artifact
+    - name: Compress CLI # This would actually build your project, using zip for an example artifact
       working-directory: ./comet-ms
-      run: Compress-Archive -Path ./build -DestinationPath ../CometCIDS.zip
+      run: tar czvf ../CometCIDS.tar.gz ./build
       
     - name: Upload Release Asset
       id: upload-release-asset 
