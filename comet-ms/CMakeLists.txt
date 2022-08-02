@@ -38,6 +38,7 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpermissive -pthread -D_NOSQLITE -DHAVE_EXP
 
 #Added by Phil 2019-07-15
 if (APPLE)
+        add_link_options("-v")
 	set(CMAKE_CXX_STANDARD 11)
 else ()
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -lpthread -lm -ldl ")
@@ -45,4 +46,3 @@ else ()
 endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
-
