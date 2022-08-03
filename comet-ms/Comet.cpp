@@ -56,16 +56,16 @@ int main(int argc, char *argv[])
        cout << " = mac os x modified test mode. ========================= " << endl;
        cout << " ======================================================== " << endl;
 
-       int ion = 7;
-       int peptideLength = 15;
-       int numDeuteria = 3;
-       vector<double> testVals = HyperFragModel::hyperFrag(ion, peptideLength, numDeuteria);
+//       int ion = 7;
+//       int peptideLength = 15;
+//       int numDeuteria = 3;
+//       vector<double> testVals = HyperFragModel::hyperFrag(ion, peptideLength, numDeuteria);
 
-       for (unsigned int i = 0; i < testVals.size(); i++) {
-           cout << "i=" << i << ": " << testVals[i] << endl;
-       }
+//       for (unsigned int i = 0; i < testVals.size(); i++) {
+//           cout << "i=" << i << ": " << testVals[i] << endl;
+//       }
 
-       exit(0);
+//       exit(0);
 
        if (argc >= 4 && strcmp(argv[2], "--isoDist") == 0 ) {
 
