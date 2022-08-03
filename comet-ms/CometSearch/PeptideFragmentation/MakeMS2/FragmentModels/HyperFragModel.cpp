@@ -35,7 +35,7 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     for (int i = 0; i < peptideLength - 1; ++i) {
         for (int j = 0; j <= inputData.nHeavy; ++j) {
 
-            vector<double> intensities = hyperFrag(j, static_cast<int>(peptideLength), inputData.nHeavy);
+            vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
 
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {
                  // B ions.
@@ -51,7 +51,7 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     for (int i = 0; i < peptideLength - 1; ++i) {
         for (int j = 0; j <= inputData.nHeavy; ++j) {
 
-            vector<double> intensities = hyperFrag(j, static_cast<int>(peptideLength), inputData.nHeavy);
+            vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
 
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {
                  // Y ions.
