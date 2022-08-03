@@ -2,6 +2,28 @@ cmake_minimum_required(VERSION 2.8)
 
 project(comet)
 
+# ###################################################################### #
+# ###### Set up Rmath dependencies ##################################### #
+# ###################################################################### #
+
+set(R_MATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../extern/Rmath")
+set(R_MATH_LIB "${R_MATH_DIR}/libRmath.a")
+set(R_MATH_HEADERS "${R_MATH_DIR}/Rmath")
+set(R_MATH_EXT "${R_MATH_DIR}/Rmath/R_ext")
+
+message("R_MATH_DIR=${R_MATH_DIR}")
+message("R_MATH_HEADERS=${R_MATH_HEADERS}")
+message("R_MATH_LIB=${R_MATH_LIB}")
+message("R_MATH_EXT=${R_MATH_EXT}")
+
+include_directories(R_MATH_DIR)
+include_directories(R_MATH_HEADERS)
+include_directories(R_MATH_EXT)
+
+# ###################################################################### #
+# ###### Include statements ############################################ #
+# ###################################################################### #
+
 include_directories(CometSearch)
 include_directories(CometSearch/PeptideFragmentation)
 include_directories(CometSearch/PeptideFragmentation/MakeMS2)
@@ -19,6 +41,10 @@ else ()
 	include_directories("/usr/include/eigen3")
 endif ()
 
+# ###################################################################### #
+# ###### Define Sources ################################################ #
+# ###################################################################### #
+
 aux_source_directory(. SOURCE_DIR)
 aux_source_directory(CometSearch COMETSEARCH_DIR)
 aux_source_directory(CometSearch/PeptideFragmentation PEPTIDEFRAGMENTATION_DIR)
@@ -28,6 +54,7 @@ aux_source_directory(MSToolkit/src/expat-2.2.0 EXPAT_DIR)
 aux_source_directory(MSToolkit/src/MSToolkit MSTOOKLIT_DIR)
 aux_source_directory(MSToolkit/src/mzParser MZPARSER_DIR)
 aux_source_directory(MSToolkit/src/zlib-1.2.8 ZLIB_DIR)
+aux_source_directory(${R_MATH_DIR} R_MATH_DIR)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -pthread -D__LINUX__ -DCURL_STATICLIB -DHTTP_ONLY" )
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64" )
@@ -50,3 +77,11 @@ else ()
 endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
+#add_library(R_MATH_LIB STATIC ${R_MATH_DIR})
+#set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
+
+# ###################################################################### #
+# ###### Link libraries ################################################ #
+# ###################################################################### #
+
+target_link_libraries(comet.exe ${R_MATH_LIB})
