@@ -7,18 +7,20 @@ project(comet)
 # ###################################################################### #
 
 set(R_MATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../extern/Rmath")
-set(R_MATH_LIB "${R_MATH_DIR}/libRmath.a")
 set(R_MATH_HEADERS "${R_MATH_DIR}/Rmath")
 set(R_MATH_EXT "${R_MATH_DIR}/Rmath/R_ext")
 
+set(R_MATH_LIB "${R_MATH_DIR}/libRmath.a")
+
 message("R_MATH_DIR=${R_MATH_DIR}")
 message("R_MATH_HEADERS=${R_MATH_HEADERS}")
-message("R_MATH_LIB=${R_MATH_LIB}")
 message("R_MATH_EXT=${R_MATH_EXT}")
 
-include_directories(R_MATH_DIR)
-include_directories(R_MATH_HEADERS)
-include_directories(R_MATH_EXT)
+message("R_MATH_LIB=${R_MATH_LIB}")
+
+include_directories(${R_MATH_DIR})
+include_directories(${R_MATH_HEADERS})
+include_directories(${R_MATH_EXT})
 
 # ###################################################################### #
 # ###### Include statements ############################################ #
@@ -77,7 +79,8 @@ else ()
 endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
-#add_library(R_MATH_LIB STATIC ${R_MATH_DIR})
+
+#add_library(R_MATH_LIB STATIC ${R_MATH_DIR}
 #set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
 
 # ###################################################################### #
