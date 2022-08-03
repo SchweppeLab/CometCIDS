@@ -91,4 +91,7 @@ set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
 # ###### Link libraries ################################################ #
 # ###################################################################### #
 
-target_link_libraries(comet.exe ${R_MATH_LIB})
+target_link_libraries(comet.exe R_MATH_LIB)
+
+# generated via 'make' in extern/Rmath
+#target_link_libraries(comet.exe ${R_MATH_LIB})
