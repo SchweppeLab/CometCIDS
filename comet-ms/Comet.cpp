@@ -45,6 +45,15 @@ void LoadParameters(char *pszParamsFile, ICometSearchManager *pSearchMgr);
 void PrintParams();
 bool ValidateInputFile(char *pszInputFileName);
 
+//Issue 1: Test dhyper() call
+#include "../../Rmath/dhyper.c"
+#include "../../Rmath/dbinom.c"
+#include "../../Rmath/stirlerr.c"
+#include "../../Rmath/bd0.c"
+
+int R_finite(double x){
+    return isfinite(x);
+}
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +64,10 @@ int main(int argc, char *argv[])
        cout << " ======================================================== " << endl;
        cout << " = mac os x modified test mode. ========================= " << endl;
        cout << " ======================================================== " << endl;
+
+       cout << "dhyper(3, 3, 7, 7) = " << dhyper(3, 3, 7, 7, false) << endl;
+
+       exit(0);
 
        if (argc >= 4 && strcmp(argv[2], "--isoDist") == 0 ) {
 
