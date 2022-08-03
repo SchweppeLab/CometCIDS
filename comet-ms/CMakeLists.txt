@@ -22,6 +22,10 @@ include_directories(${R_MATH_DIR})
 include_directories(${R_MATH_HEADERS})
 include_directories(${R_MATH_EXT})
 
+FILE(GLOB RMATH_CFiles "${R_MATH_DIR}/*.c")
+list(REMOVE_ITEM RMATH_CFiles "${R_MATH_DIR}/randmtzig.c")
+set(CMAKE_C_FLAGS "--std=gnu99 ${CMAKE_C_FLAGS}")
+
 # ###################################################################### #
 # ###### Include statements ############################################ #
 # ###################################################################### #
@@ -80,8 +84,8 @@ endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
 
-#add_library(R_MATH_LIB STATIC ${R_MATH_DIR}
-#set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
+add_library(R_MATH_LIB STATIC ${RMATH_CFiles})
+set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
 
 # ###################################################################### #
 # ###### Link libraries ################################################ #
