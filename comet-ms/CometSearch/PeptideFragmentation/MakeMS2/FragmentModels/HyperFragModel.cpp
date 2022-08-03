@@ -1,10 +1,5 @@
 #include "HyperFragModel.h"
 
-//#include "../../Rmath/dhyper.c"
-//#include "../../Rmath/dbinom.c"
-//#include "../../Rmath/stirlerr.c"
-//#include "../../Rmath/bd0.c"
-
 #include "../../../../../extern/Rmath/dhyper.c"
 #include "../../../../../extern/Rmath/dbinom.c"
 #include "../../../../../extern/Rmath/stirlerr.c"
