@@ -20,6 +20,7 @@
 #include "CometInterfaces.h"
 #include "PeptideFragmentation/MakeMS2/FragmentModels/FragmentModelOptions.h"
 #include "PeptideFragmentation/MakeMS2/FragmentModels/ChargeIsotopeModel.h"
+#include "PeptideFragmentation/MakeMS2/FragmentModels/HyperFragModel.h"
 #include "PeptideFragmentation/FragmentCalculator.h"
 #include "PeptideFragmentation/MakeMS2/peptidemass.h"
 #include <cstring>
@@ -45,16 +46,6 @@ void LoadParameters(char *pszParamsFile, ICometSearchManager *pSearchMgr);
 void PrintParams();
 bool ValidateInputFile(char *pszInputFileName);
 
-//Issue 1: Test dhyper() call
-#include "../../Rmath/dhyper.c"
-#include "../../Rmath/dbinom.c"
-#include "../../Rmath/stirlerr.c"
-#include "../../Rmath/bd0.c"
-
-int R_finite(double x){
-    return isfinite(x);
-}
-
 int main(int argc, char *argv[])
 {
    if (argc < 2)
@@ -65,7 +56,14 @@ int main(int argc, char *argv[])
        cout << " = mac os x modified test mode. ========================= " << endl;
        cout << " ======================================================== " << endl;
 
-       cout << "dhyper(3, 3, 7, 7) = " << dhyper(3, 3, 7, 7, false) << endl;
+       int ion = 7;
+       int peptideLength = 15;
+       int numDeuteria = 3;
+       vector<double> testVals = HyperFragModel::hyperFrag(ion, peptideLength, numDeuteria);
+
+       for (unsigned int i = 0; i < testVals.size(); i++) {
+           cout << "i=" << i << ": " << testVals[i] << endl;
+       }
 
        exit(0);
 
