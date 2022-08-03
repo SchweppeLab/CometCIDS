@@ -8,6 +8,7 @@
 #include "MobileProtonModel.h"
 #include "ChargeConditionalFragmentModel.h"
 #include "PlainModel.h"
+#include "HyperFragModel.h"
 
 using namespace std;
 
@@ -60,6 +61,9 @@ unique_ptr<FragmentModel> FragmentModelFactory::get(FragmentModelOptions& option
                                                        unique_ptr<FragmentModel>(new IsotopeModel(options)),
                                                        3)
                     );
+        break;
+    case FragmentModelOptions::HYPER_FRAG:
+        return unique_ptr<FragmentModel>(new HyperFragModel(options));
         break;
     default:
         return unique_ptr<FragmentModel>(new PlainModel(options));

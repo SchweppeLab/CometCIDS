@@ -18,7 +18,8 @@ public:
         MOBILE_PROTON2,
         MOBILE_PROTON_ISOTOPE2,
         MOBILE_PROTON3,
-        MOBILE_PROTON_ISOTOPE3
+        MOBILE_PROTON_ISOTOPE3,
+        HYPER_FRAG
     };
 
     FragmentModelOptions() {
