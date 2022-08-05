@@ -14,9 +14,9 @@ int R_finite(double x){
 
 vector<double> HyperFragModel::hyperFrag(int ion, int peptideLength, int numDeuteria){
 
-    vector<double> intensities(numDeuteria+1);
+    vector<double> intensities(static_cast<unsigned long>(numDeuteria+1));
 
-    for (unsigned int i = 0; i <= intensities.size(); i++) {
+    for (unsigned int i = 0; i < intensities.size(); i++) {
         auto intensity = dhyper(i, numDeuteria, (peptideLength-numDeuteria), ion, false);
         if (isfinite(intensity)) {
             intensities[i] = intensity;
