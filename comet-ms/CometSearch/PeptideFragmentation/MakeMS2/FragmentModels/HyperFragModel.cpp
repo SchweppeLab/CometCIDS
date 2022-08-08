@@ -31,10 +31,18 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     auto peptideLength = peptide.size();
     vector< vector<FragmentIon> > output(inputData.maxCharge + 1);
 
-    // Use length - 1 to avoid full-length peptide.
-    for (int i = 0; i < peptideLength - 1; ++i) {
+    if (HyperFragLookupTable::hyperFragLookupTable.empty()) {
+        HyperFragLookupTable::init_map();
+    }
 
-        vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
+    vector<vector<double>> intensityDists = HyperFragLookupTable::hyperFragLookupTable.at(
+                make_pair(inputData.nHeavy, peptideLength));
+
+    // Use length - 1 to avoid full-length peptide.
+    for (unsigned int i = 0; i < peptideLength - 1; ++i) {
+
+        //vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
+        vector<double> intensities = intensityDists.at(i);
 
         for (int j = 0; j <= inputData.nHeavy; ++j) {
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {
@@ -48,7 +56,7 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
         }
     }
 
-    for (int i = 0; i < peptideLength - 1; ++i) {
+    for (unsigned int i = 0; i < peptideLength - 1; ++i) {
 
         vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
 
