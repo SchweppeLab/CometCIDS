@@ -31,12 +31,9 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     auto peptideLength = peptide.size();
     vector< vector<FragmentIon> > output(inputData.maxCharge + 1);
 
-    if (HyperFragLookupTable::hyperFragLookupTable.empty()) {
-        HyperFragLookupTable::init_map();
-    }
+    HyperFragLookupTable lookupTable = HyperFragLookupTable();
 
-    vector<vector<double>> intensityDists = HyperFragLookupTable::hyperFragLookupTable.at(
-                make_pair(inputData.nHeavy, peptideLength));
+    vector<vector<double>> intensityDists = lookupTable.getIntensities(inputData.nHeavy, peptideLength);
 
     // Use length - 1 to avoid full-length peptide.
     for (unsigned int i = 0; i < peptideLength - 1; ++i) {
