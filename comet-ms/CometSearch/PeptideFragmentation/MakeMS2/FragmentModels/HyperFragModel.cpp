@@ -26,10 +26,17 @@ vector<double> HyperFragModel::hyperFrag(int ion, int peptideLength, int numDeut
     return intensities;
 }
 
+//void HyperFragLookupTable::init_map() {}
+
 HyperFragLookupTable& HyperFragLookupTable::instance() {
-    static HyperFragLookupTable lookupTable;
+    static HyperFragLookupTable lookupTable = HyperFragLookupTable();
+    if (lookupTable.getSize() == 0) {
+        lookupTable.init_map();
+    }
     return lookupTable;
 }
+
+#include <iostream>
 
 vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const FragmentModelData inputData) {
 
@@ -37,6 +44,8 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     vector< vector<FragmentIon> > output(inputData.maxCharge + 1);
 
     HyperFragLookupTable& lookupTable = HyperFragLookupTable::instance();
+
+    cout << "lookupTable has " << lookupTable.getSize() << " entries." << endl;
 
     vector<vector<double>> intensityDists = lookupTable.getIntensities(inputData.nHeavy, peptideLength);
 
