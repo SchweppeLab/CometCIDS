@@ -26,12 +26,17 @@ vector<double> HyperFragModel::hyperFrag(int ion, int peptideLength, int numDeut
     return intensities;
 }
 
+HyperFragLookupTable& HyperFragLookupTable::instance() {
+    static HyperFragLookupTable lookupTable;
+    return lookupTable;
+}
+
 vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const FragmentModelData inputData) {
 
     auto peptideLength = peptide.size();
     vector< vector<FragmentIon> > output(inputData.maxCharge + 1);
 
-    HyperFragLookupTable lookupTable = HyperFragLookupTable();
+    HyperFragLookupTable& lookupTable = HyperFragLookupTable::instance();
 
     vector<vector<double>> intensityDists = lookupTable.getIntensities(inputData.nHeavy, peptideLength);
 
