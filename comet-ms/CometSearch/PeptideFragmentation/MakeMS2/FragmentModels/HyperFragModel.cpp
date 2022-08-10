@@ -1,32 +1,7 @@
 #include "HyperFragModel.h"
 #include "PeptideFragmentation/MakeMS2/peptidemass.h"
 
-#include "../../../../../extern/Rmath/dhyper.c"
-#include "../../../../../extern/Rmath/dbinom.c"
-#include "../../../../../extern/Rmath/stirlerr.c"
-#include "../../../../../extern/Rmath/bd0.c"
-
 using namespace std;
-
-int R_finite(double x){
-    return isfinite(x);
-}
-
-vector<double> HyperFragModel::hyperFrag(int ion, int peptideLength, int numDeuteria){
-
-    vector<double> intensities(static_cast<unsigned long>(numDeuteria+1));
-
-    for (unsigned int i = 0; i < intensities.size(); i++) {
-        auto intensity = dhyper(i, numDeuteria, (peptideLength-numDeuteria), ion, false);
-        if (isfinite(intensity)) {
-            intensities[i] = intensity;
-        }
-    }
-
-    return intensities;
-}
-
-//void HyperFragLookupTable::init_map() {}
 
 HyperFragLookupTable& HyperFragLookupTable::instance() {
     static HyperFragLookupTable lookupTable = HyperFragLookupTable();
@@ -52,7 +27,6 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
     // Use length - 1 to avoid full-length peptide.
     for (unsigned int i = 0; i < peptideLength - 1; ++i) {
 
-        //vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
         vector<double> intensities = intensityDists.at(i);
 
         for (int j = 0; j <= inputData.nHeavy; ++j) {
@@ -69,7 +43,7 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
 
     for (unsigned int i = 0; i < peptideLength - 1; ++i) {
 
-        vector<double> intensities = hyperFrag(i, static_cast<int>(peptideLength), inputData.nHeavy);
+        vector<double> intensities = intensityDists.at(i);
 
         for (int j = 0; j <= inputData.nHeavy; ++j) {
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {

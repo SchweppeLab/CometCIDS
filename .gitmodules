@@ -1,3 +1,0 @@
-[submodule "extern/Rmath"]
-	path = extern/Rmath
-	url = https://github.com/PMSeitzer/Rmath.git

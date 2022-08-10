@@ -3,30 +3,6 @@ cmake_minimum_required(VERSION 2.8)
 project(comet)
 
 # ###################################################################### #
-# ###### Set up Rmath dependencies ##################################### #
-# ###################################################################### #
-
-set(R_MATH_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../extern/Rmath")
-set(R_MATH_HEADERS "${R_MATH_DIR}/Rmath")
-set(R_MATH_EXT "${R_MATH_DIR}/Rmath/R_ext")
-
-set(R_MATH_LIB "${R_MATH_DIR}/libRmath.a")
-
-message("R_MATH_DIR=${R_MATH_DIR}")
-message("R_MATH_HEADERS=${R_MATH_HEADERS}")
-message("R_MATH_EXT=${R_MATH_EXT}")
-
-message("R_MATH_LIB=${R_MATH_LIB}")
-
-include_directories(${R_MATH_DIR})
-include_directories(${R_MATH_HEADERS})
-include_directories(${R_MATH_EXT})
-
-FILE(GLOB RMATH_CFiles "${R_MATH_DIR}/*.c")
-list(REMOVE_ITEM RMATH_CFiles "${R_MATH_DIR}/randmtzig.c")
-set(CMAKE_C_FLAGS "--std=gnu99 ${CMAKE_C_FLAGS}")
-
-# ###################################################################### #
 # ###### Include statements ############################################ #
 # ###################################################################### #
 
@@ -61,7 +37,6 @@ aux_source_directory(MSToolkit/src/expat-2.2.0 EXPAT_DIR)
 aux_source_directory(MSToolkit/src/MSToolkit MSTOOKLIT_DIR)
 aux_source_directory(MSToolkit/src/mzParser MZPARSER_DIR)
 aux_source_directory(MSToolkit/src/zlib-1.2.8 ZLIB_DIR)
-aux_source_directory(${R_MATH_DIR} R_MATH_DIR)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -pthread -D__LINUX__ -DCURL_STATICLIB -DHTTP_ONLY" )
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64" )
@@ -85,20 +60,8 @@ endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
 
-# Issue 10: include resource information for hyperfrag dists
+# Issue 11: include resource information for hyperfrag dists
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/data/Resources.h.in" "Resources.h")
 target_include_directories(comet.exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 include(GNUInstallDirs)
 install(TARGETS comet.exe DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-add_library(R_MATH_LIB STATIC ${RMATH_CFiles})
-set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
-
-# ###################################################################### #
-# ###### Link libraries ################################################ #
-# ###################################################################### #
-
-target_link_libraries(comet.exe R_MATH_LIB)
-
-# generated via 'make' in extern/Rmath
-#target_link_libraries(comet.exe ${R_MATH_LIB})
