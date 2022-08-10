@@ -114,3 +114,6 @@ build-comet-ms-Qt_5_12_2_clang_64bit-Debug/*
 # CMake test artifacts
 comet-ms/comet.cbp
 comet-ms/tests/
+
+# bundled resources
+comet-ms/Resources.h

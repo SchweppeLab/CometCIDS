@@ -3,6 +3,12 @@
 #include <fstream>
 #include <iostream>
 
+#include <Resources.h>
+
+#ifndef RESOURCE_PATH
+#define RESOURCE_PATH "."
+#endif
+
 using namespace std;
 
 void HyperFragLookupTable::split(const string& s, string delimiter, vector<string>& v) {
@@ -35,8 +41,7 @@ void HyperFragLookupTable::init_map() {
     
     hyperFragLookupTable = std::map<std::pair<unsigned int, unsigned int>, std::vector<std::vector<double>>>();
     
-    //TODO
-    string hyperFragLookupTableFile = "/Users/phillipseitzer/Projects/CometCIDS-issues/Issue7-DHyper/lookup_table.tsv";
+    string hyperFragLookupTableFile = string(RESOURCE_PATH) + "/hyperfrag_dist_lookup_table.txt";
 
     ifstream lookupTableFileStream(hyperFragLookupTableFile);
     string line;

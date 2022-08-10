@@ -50,6 +50,7 @@ endif ()
 # ###################################################################### #
 # ###### Define Sources ################################################ #
 # ###################################################################### #
+add_subdirectory(data)
 
 aux_source_directory(. SOURCE_DIR)
 aux_source_directory(CometSearch COMETSEARCH_DIR)
@@ -83,6 +84,11 @@ else ()
 endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
+
+# Issue 10: include resource information for hyperfrag dists
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/data/Resources.h.in" "Resources.h")
+target_include_directories(comet.exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+install(TARGETS comet.exe DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_library(R_MATH_LIB STATIC ${RMATH_CFiles})
 set_target_properties(R_MATH_LIB PROPERTIES LINKER_LANGUAGE C)
