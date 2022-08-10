@@ -6,7 +6,7 @@
 #include <Resources.h>
 
 #ifndef RESOURCE_PATH
-#define RESOURCE_PATH "."
+#define RESOURCE_PATH "../../../../data"
 #endif
 
 using namespace std;
@@ -40,10 +40,10 @@ void HyperFragLookupTable::split(const string& s, string delimiter, vector<strin
 void HyperFragLookupTable::init_map() {
     
     hyperFragLookupTable = std::map<std::pair<unsigned int, unsigned int>, std::vector<std::vector<double>>>();
-    
-    string hyperFragLookupTableFile = string(RESOURCE_PATH) + "/hyperfrag_dist_lookup_table.txt";
 
-    ifstream lookupTableFileStream(hyperFragLookupTableFile);
+    const string LOOKUP_TABLE_FILE = "/hyperfrag_dist_lookup_table.txt";
+    ifstream lookupTableFileStream(RESOURCE_PATH + LOOKUP_TABLE_FILE);
+
     string line;
     if (lookupTableFileStream.is_open()) {
 
