@@ -179,6 +179,26 @@ int main(int argc, char *argv[])
                }
            }
            cout << "END SPECTRUM" << endl;
+
+//           //Test HyperFragModel only populates one time.
+//           data.nHeavy = data.nHeavy-1;
+//           output.clear();
+//           calculator.generateFragments(
+//                       cstr,
+//                       static_cast<int>(peptideSeq.size()),
+//                       data,
+//                       output);
+//           cout << " Second Spectrum (test no reimport) " << endl;
+//           cout << "START SPECTRUM" << endl;
+//           cout << "mz\tintensity" << endl;
+//           for (auto d : output) {
+//               for (auto f : d) {
+//                   cout << to_string(f.mz) << "\t" << to_string(f.intensity) << endl;
+//               }
+//           }
+//           cout << "END SPECTRUM" << endl;
+
+
        }
 
        cout << "All processes completed successfully." << endl;
