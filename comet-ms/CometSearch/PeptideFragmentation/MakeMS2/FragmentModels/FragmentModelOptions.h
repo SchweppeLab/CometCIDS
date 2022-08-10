@@ -2,6 +2,7 @@
 #define FRAGMENTMODELOPTIONS_H
 
 #include "PeptideFragmentation/MakeMS2/PeptideIsotopeDist.h"
+#include "PeptideFragmentation/MakeMS2/peptidemass.h"
 
 class FragmentModelOptions
 {
@@ -88,6 +89,12 @@ public:
      * Enable to consider only fragment ions within the observed mz range of the spectrum.
      */
     bool useMzRange;
+
+    /**
+      * Issue 10:
+      * Add ability to overwrite mass diff
+      */
+    double isotopeMassDiff = DEUTERIUM_MASS_DIFF;
 
 };
 

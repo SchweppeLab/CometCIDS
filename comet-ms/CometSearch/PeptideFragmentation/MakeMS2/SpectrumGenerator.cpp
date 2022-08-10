@@ -69,7 +69,9 @@ void SpectrumGenerator::setOption(string key, string value) {
     else if (key == "frag_isotope_min_prob") {
         options.isotopes.setProbCutoff(value);
     }
-    else {
+    else if (key == "isotope_mass_diff") {
+        options.isotopeMassDiff = stod(value);
+    } else {
         options.isotopes.setOption(key, value);
     }
 }

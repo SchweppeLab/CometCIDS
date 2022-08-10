@@ -1278,6 +1278,11 @@ bool CometSearchManager::InitializeStaticParams()
        calculator.setOption("frag_isotope_min_prob", isoMinProb);
    }
 
+   string isotopeMassDiff;
+   if (GetParamValue("isotope_mass_diff", isotopeMassDiff)) {
+       calculator.setOption("isotope_mass_diff", isotopeMassDiff);
+   }
+
    // Dist can only be set after model is selected.
    for (auto c : calculator.validOptionChars()) {
        string key = "dist-" + c;
