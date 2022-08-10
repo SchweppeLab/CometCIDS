@@ -88,6 +88,7 @@ add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTI
 # Issue 10: include resource information for hyperfrag dists
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/data/Resources.h.in" "Resources.h")
 target_include_directories(comet.exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+include(GNUInstallDirs)
 install(TARGETS comet.exe DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_library(R_MATH_LIB STATIC ${RMATH_CFiles})
