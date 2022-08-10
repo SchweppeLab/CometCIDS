@@ -18,7 +18,7 @@ vector< vector<FragmentIon> > IsotopeModel::run(string peptide, const FragmentMo
         for (int j = 0; j <= inputData.nHeavy; ++j) {
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {
                  // B ions.
-                 double mz = masstomz(inputData.aaFwdMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                 double mz = masstomz(inputData.aaFwdMasses[i] + (j * options.isotopeMassDiff), k);
                  if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                      FragmentIon b = { mz, dists.bIons.at(j).at(i) };
                      output[k].push_back(b);
@@ -30,7 +30,7 @@ vector< vector<FragmentIon> > IsotopeModel::run(string peptide, const FragmentMo
         for (int j = 0; j <= inputData.nHeavy; ++j) {
              for (int k = 1; k <= max(min(inputData.maxCharge, inputData.obsCharge-1),1); ++k) {
                  // Y ions.
-                 double mz = masstomz(inputData.aaRevMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                 double mz = masstomz(inputData.aaRevMasses[i] + (j * options.isotopeMassDiff), k);
                  if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                      FragmentIon y = { mz, dists.yIons.at(j).at(i) };
                      output[k].push_back(y);
