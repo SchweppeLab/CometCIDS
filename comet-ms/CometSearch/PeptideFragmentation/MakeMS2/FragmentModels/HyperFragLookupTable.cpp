@@ -59,9 +59,6 @@ void HyperFragLookupTable::init_map() {
             int numHeavy = stoi(bits[0]);
             int pepLength = stoi(bits[1]);
 
-            if (numHeavy == 8 && pepLength == 17) {
-                cout << "breakpoint!";
-            }
             vector<vector<double>> fragDist = HyperFragLookupTable::decodeFragDist(bits[2]);
 
             hyperFragLookupTable.insert(make_pair(make_pair(numHeavy, pepLength), fragDist));
