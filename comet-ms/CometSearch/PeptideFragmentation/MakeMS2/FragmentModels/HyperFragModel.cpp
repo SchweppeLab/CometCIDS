@@ -20,8 +20,6 @@ vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const Fragment
 
     HyperFragLookupTable& lookupTable = HyperFragLookupTable::instance();
 
-    cout << "lookupTable has " << lookupTable.getSize() << " entries." << endl;
-
     vector<vector<double>> intensityDists = lookupTable.getIntensities(inputData.nHeavy, peptideLength);
 
     // Use length - 1 to avoid full-length peptide.

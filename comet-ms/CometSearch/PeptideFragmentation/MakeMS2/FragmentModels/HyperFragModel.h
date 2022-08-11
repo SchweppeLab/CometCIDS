@@ -2,6 +2,7 @@
 #define HYPERFRAGMODEL_H
 
 #include "FragmentModel.h"
+#include <iostream>
 
 class HyperFragModel : public FragmentModel {
 public:
@@ -28,7 +29,16 @@ public:
             return hyperFragLookupTable.at(std::make_pair(peptideLength, peptideLength));
         }
 
-        return hyperFragLookupTable.at(std::make_pair(numDeuteria, peptideLength));
+        std::pair<int, int> key = std::make_pair(numDeuteria, peptideLength);
+
+        if (hyperFragLookupTable.find(key) != hyperFragLookupTable.end()) {
+            return hyperFragLookupTable.at(key);
+        } else {
+            std::cerr << " INVALID (numDeuteria, peptideLength) key: (" << numDeuteria << ", " << peptideLength << ")" << std::endl;
+            abort();
+        }
+
+
     }
 
     static HyperFragLookupTable& instance();
