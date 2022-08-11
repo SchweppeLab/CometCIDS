@@ -70,6 +70,8 @@ void HyperFragLookupTable::init_map() {
             }
         }
     }
+    lookupTableFileStream.close();
+    cout << hyperFragLookupTable.size() << " HyperFrag Distributions imported into lookup table." << endl;
 }
 
 vector<vector<double>> HyperFragLookupTable::decodeFragDist(string encodedFragDist) {
@@ -94,4 +96,10 @@ vector<vector<double>> HyperFragLookupTable::decodeFragDist(string encodedFragDi
     }
 
     return output;
+}
+
+
+HyperFragLookupTable& HyperFragLookupTable::instance() {
+    static HyperFragLookupTable lookupTable = HyperFragLookupTable();
+    return lookupTable;
 }

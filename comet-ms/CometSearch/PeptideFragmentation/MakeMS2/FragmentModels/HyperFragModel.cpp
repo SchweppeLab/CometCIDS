@@ -3,16 +3,6 @@
 
 using namespace std;
 
-HyperFragLookupTable& HyperFragLookupTable::instance() {
-    static HyperFragLookupTable lookupTable = HyperFragLookupTable();
-    if (lookupTable.getSize() == 0) {
-        lookupTable.init_map();
-    }
-    return lookupTable;
-}
-
-#include <iostream>
-
 vector< vector<FragmentIon> > HyperFragModel::run(string peptide, const FragmentModelData inputData) {
 
     auto peptideLength = peptide.size();
