@@ -26,13 +26,13 @@ void HyperFragLookupTable::split(const string& s, string delimiter, vector<strin
         }
 
         posCurrent = s.find(delimiter, posPrevious);
+    }
 
-        //last entry
-        if (posCurrent == string::npos && posPrevious != s.length()) {
-            string val = s.substr(posPrevious, s.length()-posPrevious+1);
-            if (!val.empty()) {
-                v.push_back(val);
-            }
+    //last entry
+    if (posCurrent == string::npos && posPrevious != s.length()) {
+        string val = s.substr(posPrevious, s.length()-posPrevious+1);
+        if (!val.empty()) {
+            v.push_back(val);
         }
     }
 }
