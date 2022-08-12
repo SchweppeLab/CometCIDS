@@ -15,6 +15,7 @@ include_directories(MSToolkit/src/MSToolkit)
 include_directories(MSToolkit/src/expat-2.2.0)
 include_directories(MSToolkit/src/mzParser)
 include_directories(MSToolkit/src/zlib-1.2.8)
+include_directories("../tests/")
 
 if (APPLE)
         set(CMAKE_OSX_SYSROOT "/")
@@ -60,8 +61,13 @@ endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
 
+
 # Issue 11: include resource information for hyperfrag dists
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/data/Resources.h.in" "Resources.h")
 target_include_directories(comet.exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 include(GNUInstallDirs)
 install(TARGETS comet.exe DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+# comet tests
+# add_executable(../tests/test_exampleTest.exe ../tests/comet_test_exampleTest.cpp)
+

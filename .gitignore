@@ -27,7 +27,7 @@
 *.lib
 
 # Executables
-*.exe
+**/*.exe
 *.out
 *.app
 
@@ -37,6 +37,7 @@ CMakeCache.txt
 cmake_install.cmake
 comet.exe
 Makefile
+comet-ms/comet.cbp
 
 #QtCreator auto-generated files
 comet.config
@@ -51,6 +52,8 @@ build-tests-Desktop_Qt_5_12_2_clang_64bit-Default/*
 build-tests-Desktop_Qt_5_13_0_clang_64bit-Default/*
 build-tests-Desktop_Qt_5_12_2_clang_64bit-Debug/*
 build-tests-Desktop_Qt_5_13_0_clang_64bit-Debug/*
+comet-ms/tests/test_exampleTest.dir/**
+comet-ms/tests/test_exampleTest.exe.dir/**
 
 #.DS_Store files
 .DS_Store
@@ -116,4 +119,5 @@ comet-ms/comet.cbp
 comet-ms/tests/
 
 # bundled resources
+# CMake-generated files
 comet-ms/Resources.h
