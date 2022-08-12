@@ -22,14 +22,14 @@ private:
 
 public:
 
-    std::vector<std::vector<double>> getIntensities(unsigned int numDeuteria, unsigned int peptideLength);
+    std::vector<std::vector<double> > getIntensities(unsigned int numDeuteria, unsigned int peptideLength);
     static HyperFragLookupTable& instance();
     int getSize() {return hyperFragLookupTable.size();}
 
 private:
 
     void init_map();
-    static std::vector<std::vector<double>> decodeFragDist(std::string encodedFragDist);
+    static std::vector<std::vector<double> > decodeFragDist(std::string encodedFragDist);
     static void split(const std::string& s, std::string delim, std::vector<std::string>& v);
 
     //private instantiation, since this is a singleton.

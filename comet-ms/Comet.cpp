@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
            FragmentCalculator& calculator = FragmentCalculator::instance();
 
-           vector<vector<FragmentIon>> output;
+           vector<vector<FragmentIon> > output;
 
            const int pepSeqSize = peptideSeq.size();
            char *cstr = new char[pepSeqSize];
