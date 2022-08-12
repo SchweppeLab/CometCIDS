@@ -113,3 +113,4 @@ bld/
 
 # Qt Creator-generated files
 build-comet-ms-Qt_5_12_2_clang_64bit-Debug/*
+comet-ms/Resources.h
