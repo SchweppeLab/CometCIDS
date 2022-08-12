@@ -44,6 +44,9 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_NO_THERMORAW -D_NOSQLITE" )
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include -I/usr/local/include/eigen3 -I/usr/local/include/boost")
 
+# gcc 4.8.5 needs this to be explicitly set here - do not remove
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpermissive -pthread -D_NOSQLITE -DHAVE_EXPAT_CONFIG_H -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DGCC")
 
 add_link_options("-v")
