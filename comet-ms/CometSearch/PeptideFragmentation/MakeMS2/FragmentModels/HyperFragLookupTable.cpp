@@ -98,6 +98,18 @@ vector<vector<double>> HyperFragLookupTable::decodeFragDist(string encodedFragDi
     return output;
 }
 
+vector<vector<double>> HyperFragLookupTable::getIntensities(unsigned int numDeuteria, unsigned int peptideLength) {
+
+    pair<int, int> key = make_pair(numDeuteria, peptideLength);
+
+    if (hyperFragLookupTable.find(key) != hyperFragLookupTable.end()) {
+        return hyperFragLookupTable.at(key);
+    } else {
+        cerr << "HyperFragLookupTable::getIntensities() INVALID (numDeuteria, peptideLength) key: (" << numDeuteria << ", " << peptideLength << ")" << endl;
+        cerr << "Peptides must be between 1-63 AA, number of heavy isotopes limited to no more than 63." << endl;
+        abort();
+    }
+}
 
 HyperFragLookupTable& HyperFragLookupTable::instance() {
     static HyperFragLookupTable lookupTable = HyperFragLookupTable();

@@ -22,25 +22,7 @@ private:
 
 public:
 
-    std::vector<std::vector<double>> getIntensities(unsigned int numDeuteria, unsigned int peptideLength) {
-
-        if (numDeuteria > peptideLength) {
-            //when there are more deuteria than amino acids, assume one deuterium per AA.
-            return hyperFragLookupTable.at(std::make_pair(peptideLength, peptideLength));
-        }
-
-        std::pair<int, int> key = std::make_pair(numDeuteria, peptideLength);
-
-        if (hyperFragLookupTable.find(key) != hyperFragLookupTable.end()) {
-            return hyperFragLookupTable.at(key);
-        } else {
-            std::cerr << " INVALID (numDeuteria, peptideLength) key: (" << numDeuteria << ", " << peptideLength << ")" << std::endl;
-            abort();
-        }
-
-
-    }
-
+    std::vector<std::vector<double>> getIntensities(unsigned int numDeuteria, unsigned int peptideLength);
     static HyperFragLookupTable& instance();
     int getSize() {return hyperFragLookupTable.size();}
 
