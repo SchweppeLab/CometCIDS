@@ -121,3 +121,4 @@ comet-ms/tests/
 # bundled resources
 # CMake-generated files
 comet-ms/Resources.h
+comet-ms/install_manifest.txt
