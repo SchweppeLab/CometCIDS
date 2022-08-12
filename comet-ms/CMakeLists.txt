@@ -49,11 +49,11 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpermissive -pthread -D_NOSQLITE -DHAVE_EXPAT_CONFIG_H -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DGCC")
 
-add_link_options("-v")
 set(CMAKE_CXX_STANDARD 11)
 
 # Added by Phil 2019-07-15
 if (APPLE)
+        add_link_options("-v")
 
         # 2022-08-02 (Phil):
         # Additional linker flags necessary to get comet to build on my local machine [Mac OS Monterey 12.3.1]
