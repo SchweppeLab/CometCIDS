@@ -3,21 +3,20 @@
 #include <fstream>
 #include <iostream>
 
-#include <Resources.h>
+//#include <Resources.h>
 
 #ifndef RESOURCE_PATH
-#define RESOURCE_PATH "../../../../data"
+#define RESOURCE_PATH "data/"
 #endif
 
 using namespace std;
 
 void HyperFragLookupTable::split(const string& s, string delimiter, vector<string>& v) {
 
-    unsigned long posPrevious = 0;
-    unsigned long posCurrent = s.find(delimiter, posPrevious);
+    string::size_type posPrevious = 0;
+    string::size_type posCurrent = s.find(delimiter, posPrevious);
 
     while (posCurrent != string::npos) {
-
         string val = s.substr(posPrevious, posCurrent-posPrevious);
         posPrevious = posCurrent + delimiter.length();
 
@@ -41,8 +40,10 @@ void HyperFragLookupTable::init_map() {
     
     hyperFragLookupTable = std::map<std::pair<unsigned int, unsigned int>, std::vector<std::vector<double>>>();
 
-    const string LOOKUP_TABLE_FILE = "/hyperfrag_dist_lookup_table.txt";
+    const string LOOKUP_TABLE_FILE = "hyperfrag_dist_lookup_table.txt";
     ifstream lookupTableFileStream(RESOURCE_PATH + LOOKUP_TABLE_FILE);
+
+    cout <<"Started hyper frag lookup table parsing at: " << LOOKUP_TABLE_FILE << endl;
 
     string line;
     if (lookupTableFileStream.is_open()) {
@@ -50,11 +51,10 @@ void HyperFragLookupTable::init_map() {
         unsigned int counter = 0;
         unsigned int N = 100;
         while(getline(lookupTableFileStream, line)) {
-
             //split by \t
             vector<string> bits{};
 
-            HyperFragLookupTable::split(line, "\t", bits);
+            HyperFragLookupTable::split(line, ";", bits);
 
             int numHeavy = stoi(bits[0]);
             int pepLength = stoi(bits[1]);
