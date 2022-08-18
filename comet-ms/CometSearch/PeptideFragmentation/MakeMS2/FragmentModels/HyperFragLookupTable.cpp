@@ -13,8 +13,8 @@ using namespace std;
 
 void HyperFragLookupTable::split(const string& s, string delimiter, vector<string>& v) {
 
-    unsigned long posPrevious = 0;
-    unsigned long posCurrent = s.find(delimiter, posPrevious);
+    size_t posPrevious = 0;
+    size_t posCurrent = s.find(delimiter, posPrevious);
 
     while (posCurrent != string::npos) {
 
