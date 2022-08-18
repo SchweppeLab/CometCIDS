@@ -41,7 +41,7 @@ ChargeIsotopeModel::run(string peptide, const FragmentModelData inputData) {
                  // B ions.
                  auto fraction = dhyper(k, bCharges[i], yCharges[i + 1], appliedObsCharge);
                  if (fraction > options.intensityCutoff) {
-                     double mz = masstomz(inputData.aaFwdMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                     double mz = masstomz(inputData.aaFwdMasses[i] + (j * options.isotopeMassDiff), k);
                      if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                          FragmentIon b = { mz, dists.bIons.at(j).at(i) };
                          output[k].push_back(b);
@@ -57,7 +57,7 @@ ChargeIsotopeModel::run(string peptide, const FragmentModelData inputData) {
                  // Y ions.
                  auto fraction = dhyper(k, yCharges[peptideLength - (1 + i)], bCharges[peptideLength - (2 + i)], appliedObsCharge);
                  if (fraction > options.intensityCutoff) {
-                     double mz = masstomz(inputData.aaRevMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                     double mz = masstomz(inputData.aaRevMasses[i] + (j * options.isotopeMassDiff), k);
                      if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                          FragmentIon y = { mz, dists.yIons.at(j).at(i) };
                          output[k].push_back(y);

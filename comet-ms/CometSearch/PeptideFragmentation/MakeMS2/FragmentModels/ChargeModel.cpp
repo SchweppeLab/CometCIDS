@@ -40,7 +40,7 @@ vector< vector<FragmentIon> > ChargeModel::run(string peptide, const FragmentMod
                  // B ions.
                  auto fraction = dhyper(k, bCharges[i], yCharges[i + 1], appliedObsCharge);
                  if (fraction > 0) {
-                     double mz = masstomz(inputData.aaFwdMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                     double mz = masstomz(inputData.aaFwdMasses[i] + (j * options.isotopeMassDiff), k);
                      if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                          FragmentIon b = { mz, fraction };
                          output[k].push_back(b);
@@ -56,7 +56,7 @@ vector< vector<FragmentIon> > ChargeModel::run(string peptide, const FragmentMod
                  // Y ions.
                  auto fraction = dhyper(k, yCharges[peptideLength - (1 + i)], bCharges[peptideLength - (2 + i)], appliedObsCharge);
                  if (fraction > 0) {
-                     double mz = masstomz(inputData.aaRevMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                     double mz = masstomz(inputData.aaRevMasses[i] + (j * options.isotopeMassDiff), k);
                      if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                          FragmentIon y = { mz, fraction };
                          output[k].push_back(y);

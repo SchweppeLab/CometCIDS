@@ -20,6 +20,7 @@
 #include "CometInterfaces.h"
 #include "PeptideFragmentation/MakeMS2/FragmentModels/FragmentModelOptions.h"
 #include "PeptideFragmentation/MakeMS2/FragmentModels/ChargeIsotopeModel.h"
+#include "PeptideFragmentation/MakeMS2/FragmentModels/HyperFragModel.h"
 #include "PeptideFragmentation/FragmentCalculator.h"
 #include "PeptideFragmentation/MakeMS2/peptidemass.h"
 #include <cstring>
@@ -45,7 +46,6 @@ void LoadParameters(char *pszParamsFile, ICometSearchManager *pSearchMgr);
 void PrintParams();
 bool ValidateInputFile(char *pszInputFileName);
 
-
 int main(int argc, char *argv[])
 {
    if (argc < 2)
@@ -56,60 +56,18 @@ int main(int argc, char *argv[])
        cout << " = mac os x modified test mode. ========================= " << endl;
        cout << " ======================================================== " << endl;
 
-       if (argc >= 4 && strcmp(argv[2], "--isoDist") == 0 ) {
+//       int ion = 7;
+//       int peptideLength = 15;
+//       int numDeuteria = 3;
+//       vector<double> testVals = HyperFragModel::hyperFrag(ion, peptideLength, numDeuteria);
 
-           PeptideIsotopeDist isotopes;
-           isotopes.initialize();
+//       for (unsigned int i = 0; i < testVals.size(); i++) {
+//           cout << "i=" << i << ": " << testVals[i] << endl;
+//       }
 
-           string peptideSequence = argv[3];
-           int numDeuteria = std::atoi(argv[4]);
+//       exit(0);
 
-           cout << "Peptide Sequence: " << peptideSequence << endl;
-           cout << "Number of Deuteria: " << numDeuteria << endl << endl;
-
-           isotopes.makeFragmentDist(peptideSequence, numDeuteria, true, true);
-
-       } else if (argc >= 8 && strcmp(argv[2], "--chargeIsotopeModel") == 0) {
-
-//           char *paramsFile = argv[3];
-
-//           ICometSearchManager* pSearchMgr = GetCometSearchManager();
-//           LoadParameters(paramsFile, pSearchMgr);
-
-//           //Print Parameters
-//           cout << "User-specified parameters:" << endl;
-
-//           CometSearchManager *manager = static_cast<CometSearchManager*>(pSearchMgr);
-
-//           map<string, CometParam*> params = manager->GetParamsMap();
-
-//           map<string, CometParam*>::iterator paramIterator = params.begin();
-//           while (paramIterator != params.end()) {
-
-//               cout << paramIterator->first << "=" << paramIterator->second->GetStringValue() << endl;
-//               ++paramIterator;
-//           }
-
-           string peptideSequence = argv[3];
-
-           FragmentModelData data;
-           data.nHeavy = std::atoi(argv[4]);
-           data.obsCharge = std::atoi(argv[5]);
-           data.maxCharge = std::atoi(argv[6]);
-           data.minMz = 0;
-           data.maxMz = 2000;
-           data.aaFwdMasses = new double(std::stod(argv[7]));
-           data.aaRevMasses = new double(std::stod(argv[8]));
-
-            FragmentModelOptions options = FragmentModelOptions();
-            options.isDebug = true;
-            ChargeIsotopeModel chargeIsotopeModel(options);
-
-            chargeIsotopeModel.run(peptideSequence, data);
-
-            delete(data.aaFwdMasses);
-            delete(data.aaRevMasses);
-       } else if (argc >= 3 && strcmp(argv[2], "--genTheoreticalSpectrum") == 0) {
+       if (argc >= 3 && strcmp(argv[2], "--genTheoreticalSpectrum") == 0) {
 
            char *paramsFile = argv[3];
            string peptideSeq = argv[4];
@@ -147,7 +105,7 @@ int main(int argc, char *argv[])
 
            FragmentCalculator& calculator = FragmentCalculator::instance();
 
-           vector<vector<FragmentIon>> output;
+           vector<vector<FragmentIon> > output;
 
            const int pepSeqSize = peptideSeq.size();
            char *cstr = new char[pepSeqSize];
@@ -221,6 +179,7 @@ int main(int argc, char *argv[])
                }
            }
            cout << "END SPECTRUM" << endl;
+
        }
 
        cout << "All processes completed successfully." << endl;
@@ -1337,6 +1296,9 @@ void LoadParameters(char *pszParamsFile,
                 pSearchMgr->SetParam(szParamName, szParamVal, szParamVal);
             }
             else if (strstr(szParamName, "isotope_min_prob")) {
+                pSearchMgr->SetParam(szParamName, szParamVal, szParamVal);
+            }
+            else if (strstr(szParamName, "isotope_mass_diff")) {
                 pSearchMgr->SetParam(szParamName, szParamVal, szParamVal);
             }
             else

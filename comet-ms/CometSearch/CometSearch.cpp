@@ -2873,8 +2873,8 @@ void CometSearch::XcorrScore(char *szProteinSeq,
    fragmentData.minMz = pQuery->_spectrumInfoInternal.minMz;
    fragmentData.maxMz = pQuery->_spectrumInfoInternal.maxMz;
 
-   FragmentCalculator& caculator = FragmentCalculator::instance();
-   caculator.generateFragments(
+   FragmentCalculator& calculator = FragmentCalculator::instance();
+   calculator.generateFragments(
                szProteinSeq + iStartPos,
                iLenPeptide,
                fragmentData,

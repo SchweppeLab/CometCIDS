@@ -113,3 +113,12 @@ bld/
 
 # Qt Creator-generated files
 build-comet-ms-Qt_5_12_2_clang_64bit-Debug/*
+
+# CMake test artifacts
+comet-ms/comet.cbp
+comet-ms/tests/
+
+# bundled resources
+# CMake-generated files
+comet-ms/Resources.h
+comet-ms/install_manifest.txt

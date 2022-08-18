@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 project(comet)
 
+# ###################################################################### #
+# ###### Include statements ############################################ #
+# ###################################################################### #
+
 include_directories(CometSearch)
 include_directories(CometSearch/PeptideFragmentation)
 include_directories(CometSearch/PeptideFragmentation/MakeMS2)
@@ -20,6 +24,11 @@ else ()
 	include_directories("/usr/include/eigen3")
 endif ()
 
+# ###################################################################### #
+# ###### Define Sources ################################################ #
+# ###################################################################### #
+add_subdirectory(data)
+
 aux_source_directory(. SOURCE_DIR)
 aux_source_directory(CometSearch COMETSEARCH_DIR)
 aux_source_directory(CometSearch/PeptideFragmentation PEPTIDEFRAGMENTATION_DIR)
@@ -35,11 +44,20 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_NO_THERMORAW -D_NOSQLITE" )
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include -I/usr/local/include/eigen3 -I/usr/local/include/boost")
 
+# gcc 4.8.5 needs this to be explicitly set here - do not remove
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpermissive -pthread -D_NOSQLITE -DHAVE_EXPAT_CONFIG_H -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DGCC")
 
-#Added by Phil 2019-07-15
+set(CMAKE_CXX_STANDARD 11)
+
+# Added by Phil 2019-07-15
 if (APPLE)
-	set(CMAKE_CXX_STANDARD 11)
+        add_link_options("-v")
+
+        # 2022-08-02 (Phil):
+        # Additional linker flags necessary to get comet to build on my local machine [Mac OS Monterey 12.3.1]
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L/usr/local/opt/llvm/lib/ -L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/")
 else ()
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -lpthread -lm -ldl ")
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -lpthread -lm -ldl ")
@@ -47,5 +65,13 @@ endif ()
 
 add_executable(comet.exe ${SOURCE_DIR} ${COMETSEARCH_DIR} ${MAKEMS2_DIR} ${PEPTIDEFRAGMENTATION_DIR} ${EXPAT_DIR} ${MSTOOKLIT_DIR} ${MZPARSER_DIR} ${ZLIB_DIR})
 
+
+# Issue 11: include resource information for hyperfrag dists
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/data/Resources.h.in" "Resources.h")
+target_include_directories(comet.exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+include(GNUInstallDirs)
+install(TARGETS comet.exe DESTINATION ${CMAKE_INSTALL_BINDIR})
+
 # comet tests
 # add_executable(../tests/test_exampleTest.exe ../tests/comet_test_exampleTest.cpp)
+

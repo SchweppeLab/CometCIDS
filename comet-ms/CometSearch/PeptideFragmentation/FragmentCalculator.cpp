@@ -45,7 +45,9 @@ void FragmentCalculator::setOption(string key, string value) {
             model = FragmentModelOptions::MOBILE_PROTON3;
         } else if (value == "mobile_proton_isotope3") {
             model = FragmentModelOptions::MOBILE_PROTON_ISOTOPE3;
-        } else if (value == "") {
+        } else if (value == "hyper_frag") {
+            model = FragmentModelOptions::HYPER_FRAG;
+        } else if (value == "plain" || value == "") {
             model = FragmentModelOptions::PLAIN;
         } else {
             throw "Invalid fragment model type";

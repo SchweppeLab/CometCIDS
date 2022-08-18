@@ -22,7 +22,7 @@ vector< vector<FragmentIon> > MobileProtonIsotopeModel::run(string peptide, cons
         for (int j = 0; j <= inputData.nHeavy; ++j) {
             const auto &chargeRange = charges.b.at(i);
             for (auto k = max(chargeRange.min, 1); k <= chargeRange.max && k <= inputData.maxCharge; ++k) {
-                double mz = masstomz(inputData.aaFwdMasses[i] + (j * DEUTERIUM_MASS_DIFF), k);
+                double mz = masstomz(inputData.aaFwdMasses[i] + (j * options.isotopeMassDiff), k);
                 if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                     FragmentIon b = { mz, dists.bIons.at(j).at(i) };
                     output[k].push_back(b);
@@ -37,7 +37,7 @@ vector< vector<FragmentIon> > MobileProtonIsotopeModel::run(string peptide, cons
         for (int j = 0; j <= inputData.nHeavy; ++j) {
             const auto &chargeRange = charges.y.at(i);
             for (auto k = max(chargeRange.min, 1); k <= chargeRange.max && k <= inputData.maxCharge; ++k) {
-                double mz = masstomz(inputData.aaRevMasses[peptideLength - (i + 1)] + (j * DEUTERIUM_MASS_DIFF), k);
+                double mz = masstomz(inputData.aaRevMasses[peptideLength - (i + 1)] + (j * options.isotopeMassDiff), k);
                 if (!options.useMzRange || (mz > inputData.minMz && mz < inputData.maxMz)) {
                     FragmentIon b = { mz, dists.yIons.at(j).at(peptideLength - (i + 1)) };
                     output[k].push_back(b);
