@@ -83,6 +83,51 @@
     <ClCompile Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CometSearch\CometCheckForUpdates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometInterfaces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometMassSpecUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometPostAnalysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometPreprocess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometSearchManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometWriteOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometWritePepXML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometWritePercolator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometWriteSqt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\CometWriteTxt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\Threading.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragLookupTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Comet.rc">
@@ -156,5 +201,71 @@
     <ClInclude Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CometSearch\CometCheckForUpdates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometDataInternal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometDecoys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometInterfaces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometMassSpecUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometPostAnalysis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometPreprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometSearchManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometWriteOut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometWritePepXML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometWritePercolator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometWriteSqt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\CometWriteTxt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\OSSpecificThreading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\Threading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\ThreadPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\hyperfrag_dist_lookup_table.txt" />
   </ItemGroup>
 </Project>

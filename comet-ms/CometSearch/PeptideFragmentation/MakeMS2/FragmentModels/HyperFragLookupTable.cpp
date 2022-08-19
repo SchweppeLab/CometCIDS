@@ -3,13 +3,15 @@
 #include <fstream>
 #include <iostream>
 
+#ifdef __linux__ 
 #include <Resources.h>
+#endif
 
 #ifndef RESOURCE_PATH
 #define RESOURCE_PATH "../../../../data"
 #endif
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <direct.h>
 #define GetCurrentDir _getcwd
 #else
