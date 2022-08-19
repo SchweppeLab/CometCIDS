@@ -9,6 +9,14 @@
 #define RESOURCE_PATH "../../../../data"
 #endif
 
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+
 using namespace std;
 
 void HyperFragLookupTable::split(const string& s, string delimiter, vector<string>& v) {
@@ -42,10 +50,28 @@ void HyperFragLookupTable::init_map() {
     hyperFragLookupTable = std::map<std::pair<unsigned int, unsigned int>, std::vector<std::vector<double>>>();
 
     const string LOOKUP_TABLE_FILE = "/hyperfrag_dist_lookup_table.txt";
-    ifstream lookupTableFileStream(RESOURCE_PATH + LOOKUP_TABLE_FILE);
+
+    string LOOKUP_TABLE_FULL_PATH = RESOURCE_PATH + LOOKUP_TABLE_FILE;
+    ifstream lookupTableFileStream(LOOKUP_TABLE_FULL_PATH);
+
+    if (!lookupTableFileStream.is_open()) {
+
+        cout << "Unable to find hyperfrag_dist_lookup_table.txt file: \'" <<  LOOKUP_TABLE_FULL_PATH << "\'" << endl;
+
+        char buff[FILENAME_MAX]; //create string buffer to hold path
+        GetCurrentDir( buff, FILENAME_MAX );
+        string current_working_dir(buff);
+        LOOKUP_TABLE_FULL_PATH = current_working_dir + "/data/" + LOOKUP_TABLE_FILE;
+
+        cout << "Looking for hyperfrag_dist_lookup_table.txt file: \'" << LOOKUP_TABLE_FULL_PATH << "\'" << endl;
+        lookupTableFileStream.open(LOOKUP_TABLE_FULL_PATH);
+
+    }
 
     string line;
     if (lookupTableFileStream.is_open()) {
+
+        cout << "Successfully found hyper frag dist lookup table file: \'" << LOOKUP_TABLE_FULL_PATH << "\'" << endl;
 
         unsigned int counter = 0;
         unsigned int N = 100;
@@ -69,6 +95,11 @@ void HyperFragLookupTable::init_map() {
                 cout << "Processed " << counter << " HyperFrag Distributions." << endl;
             }
         }
+    } else {
+        cerr << "Unable to locate hyper frag dist lookup table file.\n"
+                "Please ensure that file data/hyperfrag_dist_lookup_table.txt exists and is readable."
+             << endl;
+        abort();
     }
     lookupTableFileStream.close();
     cout << hyperFragLookupTable.size() << " HyperFrag Distributions imported into lookup table." << endl;
