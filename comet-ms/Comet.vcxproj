@@ -190,6 +190,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Comet.cpp" />
+    <ClCompile Include="CometSearch\CometCheckForUpdates.cpp" />
+    <ClCompile Include="CometSearch\CometInterfaces.cpp" />
+    <ClCompile Include="CometSearch\CometMassSpecUtils.cpp" />
+    <ClCompile Include="CometSearch\CometPostAnalysis.cpp" />
+    <ClCompile Include="CometSearch\CometPreprocess.cpp" />
+    <ClCompile Include="CometSearch\CometSearch.cpp" />
+    <ClCompile Include="CometSearch\CometSearchManager.cpp" />
+    <ClCompile Include="CometSearch\CometWriteOut.cpp" />
+    <ClCompile Include="CometSearch\CometWritePepXML.cpp" />
+    <ClCompile Include="CometSearch\CometWritePercolator.cpp" />
+    <ClCompile Include="CometSearch\CometWriteSqt.cpp" />
+    <ClCompile Include="CometSearch\CometWriteTxt.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\FragmentCalculator.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\dist.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\fft.cpp" />
@@ -200,6 +212,8 @@
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelData.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelFactory.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelOptions.cpp" />
+    <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragLookupTable.cpp" />
+    <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragModel.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\IsotopeModel.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\MobileProtonIsotopeModel.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\MobileProtonModel.cpp" />
@@ -210,6 +224,7 @@
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\peptidemass.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\MakeMS2\SpectrumGenerator.cpp" />
     <ClCompile Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.cpp" />
+    <ClCompile Include="CometSearch\Threading.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Comet.rc" />
@@ -218,6 +233,24 @@
     <None Include="icon\comet.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CometSearch\CometCheckForUpdates.h" />
+    <ClInclude Include="CometSearch\CometData.h" />
+    <ClInclude Include="CometSearch\CometDataInternal.h" />
+    <ClInclude Include="CometSearch\CometDecoys.h" />
+    <ClInclude Include="CometSearch\CometInterfaces.h" />
+    <ClInclude Include="CometSearch\CometMassSpecUtils.h" />
+    <ClInclude Include="CometSearch\CometPostAnalysis.h" />
+    <ClInclude Include="CometSearch\CometPreprocess.h" />
+    <ClInclude Include="CometSearch\CometSearch.h" />
+    <ClInclude Include="CometSearch\CometSearchManager.h" />
+    <ClInclude Include="CometSearch\CometStatus.h" />
+    <ClInclude Include="CometSearch\CometWriteOut.h" />
+    <ClInclude Include="CometSearch\CometWritePepXML.h" />
+    <ClInclude Include="CometSearch\CometWritePercolator.h" />
+    <ClInclude Include="CometSearch\CometWriteSqt.h" />
+    <ClInclude Include="CometSearch\CometWriteTxt.h" />
+    <ClInclude Include="CometSearch\Common.h" />
+    <ClInclude Include="CometSearch\OSSpecificThreading.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\FragmentCalculator.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\dist.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\fft.h" />
@@ -229,6 +262,7 @@
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelData.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelFactory.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\FragmentModelOptions.h" />
+    <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\HyperFragModel.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\IsotopeModel.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\MobileProtonIsotopeModel.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\FragmentModels\MobileProtonModel.h" />
@@ -239,7 +273,19 @@
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\peptidemass.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\MakeMS2\SpectrumGenerator.h" />
     <ClInclude Include="CometSearch\PeptideFragmentation\Utils\HyperGeometric.h" />
+    <ClInclude Include="CometSearch\Threading.h" />
+    <ClInclude Include="CometSearch\ThreadPool.h" />
     <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\hyperfrag_dist_lookup_table.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\hyperfrag_dist_lookup_table.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
