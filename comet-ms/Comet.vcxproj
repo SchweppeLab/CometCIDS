@@ -278,6 +278,11 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\hyperfrag_dist_lookup_table.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="data\hyperfrag_dist_lookup_table.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>

@@ -49,9 +49,18 @@ void HyperFragLookupTable::split(const string& s, string delimiter, vector<strin
 
 void HyperFragLookupTable::init_map() {
     
+    const string path_sep =
+#ifdef _WIN32
+        "\\";
+#else
+        "/";
+#endif
+
     hyperFragLookupTable = std::map<std::pair<unsigned int, unsigned int>, std::vector<std::vector<double>>>();
 
-    const string LOOKUP_TABLE_FILE = "/hyperfrag_dist_lookup_table.txt";
+    const string LOOKUP_TABLE_FILE = path_sep + "hyperfrag_dist_lookup_table.txt";
+
+    cout << "File name: \'" << LOOKUP_TABLE_FILE << "\'" << endl;
 
     string LOOKUP_TABLE_FULL_PATH = RESOURCE_PATH + LOOKUP_TABLE_FILE;
     ifstream lookupTableFileStream(LOOKUP_TABLE_FULL_PATH);
@@ -63,7 +72,7 @@ void HyperFragLookupTable::init_map() {
         char buff[FILENAME_MAX]; //create string buffer to hold path
         GetCurrentDir( buff, FILENAME_MAX );
         string current_working_dir(buff);
-        LOOKUP_TABLE_FULL_PATH = current_working_dir + "/data/" + LOOKUP_TABLE_FILE;
+        LOOKUP_TABLE_FULL_PATH = current_working_dir + path_sep + "data" + LOOKUP_TABLE_FILE;
 
         cout << "Looking for hyperfrag_dist_lookup_table.txt file: \'" << LOOKUP_TABLE_FULL_PATH << "\'" << endl;
         lookupTableFileStream.open(LOOKUP_TABLE_FULL_PATH);
