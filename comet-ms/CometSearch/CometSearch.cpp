@@ -2838,6 +2838,244 @@ char CometSearch::GetAA(int i,
 
 }
 
+// BEGIN: CometSearch::XcorrScore() OLD
+// Taken from
+// https://github.com/UWPR/Comet
+// branch: main
+// commit: 1da01901832ba3c4353a354ceee1008ea0f5b014
+
+// Compares sequence to MSMS spectrum by matching ion intensities.
+//void CometSearch::XcorrScore(char *szProteinSeq,
+//                             int iStartResidue,        // needed for decoy peptide; otherwise just duplicate of iStartPos
+//                             int iEndResidue,
+//                             int iStartPos,
+//                             int iEndPos,
+//                             int iFoundVariableMod,    // 0=no mods, 1 has variable mod, 2=phospho mod use NL peaks
+//                             double dCalcPepMass,
+//                             bool bDecoyPep,
+//                             int iWhichQuery,
+//                             int iLenPeptide,
+//                             int *piVarModSites,
+//                             struct sDBEntry *dbe)
+//{
+//   int  ctLen,
+//        ctIonSeries,
+//        ctCharge;
+//   double dXcorr;
+//   int iLenPeptideMinus1 = iLenPeptide - 1;
+
+//   // Pointer to either regular or decoy uiBinnedIonMasses[][][][][].
+//   unsigned int (*p_uiBinnedIonMasses)[MAX_FRAGMENT_CHARGE+1][9][MAX_PEPTIDE_LEN][BIN_MOD_COUNT];
+//   unsigned int (*p_uiBinnedPrecursorNL)[MAX_PRECURSOR_NL_SIZE][MAX_PRECURSOR_CHARGE];
+
+//   // Point to right set of arrays depending on target or decoy search.
+//   if (bDecoyPep)
+//   {
+//      p_uiBinnedIonMasses = &_uiBinnedIonMassesDecoy;
+//      p_uiBinnedPrecursorNL = &_uiBinnedPrecursorNLDecoy;
+//   }
+//   else
+//   {
+//      p_uiBinnedIonMasses = &_uiBinnedIonMasses;
+//      p_uiBinnedPrecursorNL = &_uiBinnedPrecursorNL;
+//   }
+
+//   int iWhichIonSeries;
+//   bool bUseWaterAmmoniaNLPeaks = false;
+//   Query* pQuery = g_pvQuery.at(iWhichQuery);
+
+//   float **ppSparseFastXcorrData;              // use this if bSparseMatrix
+
+//   dXcorr = 0.0;
+
+//   // iMax is largest x-value allowed as iMax+1 is allocated and we're 0-index
+//   int iMax = pQuery->_spectrumInfoInternal.iArraySize/SPARSE_MATRIX_SIZE;
+
+//   int bin,x,y;
+
+//   for (ctCharge=1; ctCharge<=pQuery->_spectrumInfoInternal.iMaxFragCharge; ctCharge++)
+//   {
+//      for (ctIonSeries=0; ctIonSeries<g_staticParams.ionInformation.iNumIonSeriesUsed; ctIonSeries++)
+//      {
+//         iWhichIonSeries = g_staticParams.ionInformation.piSelectedIonSeries[ctIonSeries];
+
+//         if (g_staticParams.ionInformation.bUseWaterAmmoniaLoss
+//               && (iWhichIonSeries==ION_SERIES_A || iWhichIonSeries==ION_SERIES_B || iWhichIonSeries==ION_SERIES_Y))
+//         {
+//            bUseWaterAmmoniaNLPeaks = true;
+//         }
+//         else
+//            bUseWaterAmmoniaNLPeaks = false;
+
+//         if (ctCharge == 1 && bUseWaterAmmoniaNLPeaks)
+//         {
+//            ppSparseFastXcorrData = pQuery->ppfSparseFastXcorrDataNL;
+//         }
+//         else
+//         {
+//            ppSparseFastXcorrData = pQuery->ppfSparseFastXcorrData;
+//         }
+
+//         for (ctLen=0; ctLen<iLenPeptideMinus1; ctLen++)
+//         {
+//            //MH: newer sparse matrix converts bin to sparse matrix bin
+//            bin = *(*(*(*(*p_uiBinnedIonMasses + ctCharge) + ctIonSeries)  +ctLen) + 0);
+///*
+//            if (bin < 0)
+//            {
+//               char szErrorMsg[SIZE_ERROR];
+//               sprintf(szErrorMsg,  " Error1 in CometSearch::XcorrScore: bin %d, scan %d, ctZ %d, ctIon %d, ctLen %d\n",
+//                     bin, g_pvQuery.at(iWhichQuery)->_spectrumInfoInternal.iScanNumber,
+//                     ctCharge, ctIonSeries, ctLen);
+//               logout(szErrorMsg);
+//               continue;
+//            }
+//*/
+//            x = bin / SPARSE_MATRIX_SIZE;
+
+//            if (bin <= 0 || x>iMax || ppSparseFastXcorrData[x]==NULL) // x should never be > iMax so this is just a safety check
+//               continue;
+
+//            y = bin - (x*SPARSE_MATRIX_SIZE);
+
+//            dXcorr += ppSparseFastXcorrData[x][y];
+
+//            if (g_staticParams.variableModParameters.bUseFragmentNeutralLoss && iFoundVariableMod==2)
+//            {
+//               for (int ii = 0; ii < VMODS; ii++)
+//               {
+//                  if (g_staticParams.variableModParameters.varModList[ii].dNeutralLoss != 0.0)
+//                  {
+//                     //x+1 here as 0 is the base fragment ion series
+//                     // *(*(*(*(*p_uiBinnedIonMasses + ctCharge)+ctIonSeries)+ctLen)+NL) gives uiBinnedIonMasses[ctCharge][ctIonSeries][ctLen][NL].
+//                     bin = *(*(*(*(*p_uiBinnedIonMasses + ctCharge) + ctIonSeries)  +ctLen) + ii+1);
+///*
+//                     if (bin < 0)
+//                     {
+//                        char szErrorMsg[SIZE_ERROR];
+//                        sprintf(szErrorMsg,  " Error2 in CometSearch::XcorrScore: bin %d, scan %d, ctZ %d, ctIon %d, ctLen %d, mod %d\n",
+//                              bin, g_pvQuery.at(iWhichQuery)->_spectrumInfoInternal.iScanNumber,
+//                              ctCharge, ctIonSeries, ctLen, ii);
+//                        logout(szErrorMsg);
+//                        continue;
+//                     }
+//*/
+//                     x = bin / SPARSE_MATRIX_SIZE;
+
+//                     if (bin <= 0 || x>iMax || ppSparseFastXcorrData[x]==NULL) // x should never be > iMax so this is just a safety check
+//                        continue;
+
+//                     y = bin - (x*SPARSE_MATRIX_SIZE);
+
+//                     dXcorr += ppSparseFastXcorrData[x][y];
+//                  }
+//               }
+//            }
+//         }
+//      }
+//   }
+
+//   // precursor NL
+//   ppSparseFastXcorrData = pQuery->ppfSparseFastXcorrData;
+//   for (int ctNL=0; ctNL<g_staticParams.iPrecursorNLSize; ctNL++)
+//   {
+//      for (int ctZ=g_pvQuery.at(iWhichQuery)->_spectrumInfoInternal.iChargeState; ctZ>=1; ctZ--)
+//      {
+//         bin = *(*(*p_uiBinnedPrecursorNL + ctNL) + ctZ);
+///*
+//         if (bin < 0)
+//         {
+//            char szErrorMsg[SIZE_ERROR];
+//            sprintf(szErrorMsg,  " Error3 in CometSearch::XcorrScore: bin %d, scan %d, ctNL %d, ctZ %d\n",
+//                  bin, g_pvQuery.at(iWhichQuery)->_spectrumInfoInternal.iScanNumber, ctNL, ctZ);
+//            logout(szErrorMsg);
+//            continue;
+//         }
+//*/
+//         x = bin / SPARSE_MATRIX_SIZE;
+
+//         if (bin <= 0 || x>iMax || ppSparseFastXcorrData[x]==NULL) // x should never be > iMax so this is just a safety check
+//            continue;
+
+//         y = bin - (x*SPARSE_MATRIX_SIZE);
+
+//         dXcorr += ppSparseFastXcorrData[x][y];
+//      }
+//   }
+
+//   dXcorr *= 0.005;  // Scale intensities to 50 and divide score by 1E4.
+
+//   Threading::LockMutex(pQuery->accessMutex);
+
+//   // Increment matched peptide counts.
+//   if (bDecoyPep && g_staticParams.options.iDecoySearch == 2)
+//      pQuery->_uliNumMatchedDecoyPeptides++;
+//   else
+//      pQuery->_uliNumMatchedPeptides++;
+
+//   if (g_staticParams.options.bPrintExpectScore
+//         || g_staticParams.options.bOutputPepXMLFile
+//         || g_staticParams.options.bOutputPercolatorFile
+//         || g_staticParams.options.bOutputTxtFile)
+//   {
+//      int iTmp;
+
+//      iTmp = (int)(dXcorr * 10.0 + 0.5);
+
+//      if (iTmp < 0) // possible for CRUX compiled option to have a negative xcorr
+//         iTmp = 0;  // lump these all in the zero bin of the histogram
+
+//      if (iTmp >= HISTO_SIZE)
+//         iTmp = HISTO_SIZE - 1;
+
+//      pQuery->iXcorrHistogram[iTmp] += 1;
+//      if (pQuery->iHistogramCount < DECOY_SIZE)
+//         pQuery->iHistogramCount += 1;
+//   }
+
+//   if (bDecoyPep && g_staticParams.options.iDecoySearch==2)
+//   {
+//      if (dXcorr > pQuery->dLowestDecoyXcorrScore)
+//      {
+//         // no need to check duplicates if indexed database search and !g_staticParams.options.bTreatSameIL
+//         if (g_staticParams.bIndexDb && !g_staticParams.options.bTreatSameIL)
+//         {
+//            StorePeptide(iWhichQuery, iStartResidue, iStartPos, iEndPos, iFoundVariableMod, szProteinSeq,
+//                  dCalcPepMass, dXcorr, bDecoyPep,  piVarModSites, dbe);
+//         }
+//         else if (!CheckDuplicate(iWhichQuery, iStartResidue, iEndResidue, iStartPos, iEndPos, iFoundVariableMod, dCalcPepMass,
+//                  szProteinSeq, bDecoyPep, piVarModSites, dbe))
+//         {
+//            StorePeptide(iWhichQuery, iStartResidue, iStartPos, iEndPos, iFoundVariableMod, szProteinSeq,
+//                  dCalcPepMass, dXcorr, bDecoyPep,  piVarModSites, dbe);
+//         }
+//      }
+//   }
+//   else
+//   {
+//      if (dXcorr > pQuery->dLowestXcorrScore)
+//      {
+//         // no need to check duplicates if indexed database search and !g_staticParams.options.bTreatSameIL and no internal decoys
+//         if (g_staticParams.bIndexDb && !g_staticParams.options.bTreatSameIL && g_staticParams.options.iDecoySearch == 0)
+//         {
+//            StorePeptide(iWhichQuery, iStartResidue, iStartPos, iEndPos, iFoundVariableMod, szProteinSeq,
+//                  dCalcPepMass, dXcorr, bDecoyPep, piVarModSites, dbe);
+//         }
+//         else if (!CheckDuplicate(iWhichQuery, iStartResidue, iEndResidue, iStartPos, iEndPos, iFoundVariableMod, dCalcPepMass,
+//                  szProteinSeq, bDecoyPep, piVarModSites, dbe))
+//         {
+//            StorePeptide(iWhichQuery, iStartResidue, iStartPos, iEndPos, iFoundVariableMod, szProteinSeq,
+//                  dCalcPepMass, dXcorr, bDecoyPep, piVarModSites, dbe);
+//         }
+//      }
+//   }
+
+//   Threading::UnlockMutex(pQuery->accessMutex);
+//}
+
+// END: CometSearch::XcorrScore() OLD
+
+// BEGIN: CometSearch::XcorrScore() NEW
 
 // Compares sequence to MSMS spectrum by matching ion intensities.
 void CometSearch::XcorrScore(char *szProteinSeq,
@@ -2974,6 +3212,7 @@ void CometSearch::XcorrScore(char *szProteinSeq,
    Threading::UnlockMutex(pQuery->accessMutex);
 }
 
+// BEGIN: CometSearch::XcorrScore() OLD
 
 double CometSearch::GetFragmentIonMass(int iWhichIonSeries,
                                        int i,
