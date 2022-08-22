@@ -3212,7 +3212,7 @@ void CometSearch::XcorrScore(char *szProteinSeq,
    Threading::UnlockMutex(pQuery->accessMutex);
 }
 
-// BEGIN: CometSearch::XcorrScore() OLD
+// END: CometSearch::XcorrScore() NEW
 
 double CometSearch::GetFragmentIonMass(int iWhichIonSeries,
                                        int i,
